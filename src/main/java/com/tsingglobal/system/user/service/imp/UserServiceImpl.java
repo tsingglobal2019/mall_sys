@@ -12,7 +12,7 @@ import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.user.dao.UserDao;
 import com.tsingglobal.system.user.domain.UserModel;
 import com.tsingglobal.system.user.service.UserService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 @Service("userService")
 public class UserServiceImpl implements UserService {

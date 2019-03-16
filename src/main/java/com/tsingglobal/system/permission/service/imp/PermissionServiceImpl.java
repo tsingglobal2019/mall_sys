@@ -9,7 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.tsingglobal.system.permission.dao.PermissionDao;
 import com.tsingglobal.system.permission.domain.PermissionModel;
 import com.tsingglobal.system.permission.service.PermissionService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 import com.tsingglobal.utils.Constants;
 
 @Service("permissionService")
@@ -108,7 +108,7 @@ public class PermissionServiceImpl implements PermissionService {
 		
 		for( int i = 0 ; i < permissionCodes.length ; i++) {
 			
-			codes[i] = CommonUtil.getPermissionCode(permissionCodes[i]);
+			codes[i] = com.tsingglobal.utils.CommonUtil.getPermissionCode(permissionCodes[i]);
 		}
 		return codes;
 	}

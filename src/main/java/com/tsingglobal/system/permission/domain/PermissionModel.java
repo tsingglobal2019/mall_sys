@@ -2,7 +2,7 @@ package com.tsingglobal.system.permission.domain;
 
 import java.io.Serializable;
 
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 public class PermissionModel implements Serializable {
 	    

@@ -3,7 +3,7 @@ package com.tsingglobal.system.log.dto;
 import java.io.Serializable;
 import java.sql.Time;
 
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 /**
 * 描述：质量问题DTO

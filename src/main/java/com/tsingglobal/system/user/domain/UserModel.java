@@ -12,7 +12,7 @@ package com.tsingglobal.system.user.domain;
 
 import java.io.Serializable;
 
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 /**
     * @ClassName: UserModel

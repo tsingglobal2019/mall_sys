@@ -12,7 +12,7 @@ package com.tsingglobal.system.org.domain;
 
 import java.io.Serializable;
 
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 /**
     * @ClassName: OrganizationModel

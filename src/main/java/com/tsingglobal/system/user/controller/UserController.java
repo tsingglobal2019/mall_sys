@@ -24,7 +24,7 @@ import com.github.pagehelper.PageInfo;
 import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.user.domain.UserModel;
 import com.tsingglobal.system.user.service.UserService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 @RestController
 @RequestMapping(value="/system/user")
@@ -146,7 +146,7 @@ public class UserController {
 			
 			if( CommonUtil.isEmpty(user) || CommonUtil.isEmpty(user.getLoginName()) || CommonUtil.isEmpty(user.getPassword()) ) {
 				
-				CommonUtil.log("登录", "登录失败！",user.getLoginName());
+				com.tsingglobal.utils.CommonUtil.log("登录", "登录失败！",user.getLoginName());
 				
 				CommonUtil.error(response, "缺少登录用户信息！");
 				
@@ -159,7 +159,7 @@ public class UserController {
 			
 			if( users == null || users.size() != 1) {
 				
-				CommonUtil.log("登录", "登录失败！缺少登录用户信息！",user.getLoginName());
+				com.tsingglobal.utils.CommonUtil.log("登录", "登录失败！缺少登录用户信息！",user.getLoginName());
 				CommonUtil.error(response, "缺少登录用户信息！");
 				
 				return ;
@@ -169,7 +169,7 @@ public class UserController {
 			
 			request.getSession().setAttribute( "curUser", curUser );			
 			
-			CommonUtil.log("登录", curUser.getUserName()+"登录成功！");
+			com.tsingglobal.utils.CommonUtil.log("登录", curUser.getUserName()+"登录成功！");
 		}
 		
 		CommonUtil.sendJsonData(response, JSON.toJSONString(curUser));

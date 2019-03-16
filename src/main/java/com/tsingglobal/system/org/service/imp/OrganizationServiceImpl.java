@@ -10,7 +10,7 @@ import com.tsingglobal.system.org.dao.OrganizationDao;
 import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.org.service.OrganizationService;
 import com.tsingglobal.system.user.dao.UserDao;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 import com.tsingglobal.utils.Constants;
 
 @Service("orgService")
@@ -109,7 +109,7 @@ public class OrganizationServiceImpl implements OrganizationService {
 		
 		for( int i = 0 ; i < orgCodes.length ; i++) {
 			
-			codes[i] = CommonUtil.getOrgCode(orgCodes[i]);
+			codes[i] = com.tsingglobal.utils.CommonUtil.getOrgCode(orgCodes[i]);
 		}
 		return codes;
 	}

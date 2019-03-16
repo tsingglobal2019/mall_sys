@@ -23,7 +23,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.org.service.OrganizationService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 
 @RestController
@@ -120,7 +120,7 @@ public class OrganizationController {
 		final OrganizationModel org = new OrganizationModel();//new OrganizationModel();
 		org.setOrgCode( request.getParameter("orgCode") );
 		org.setOrgName( request.getParameter("orgName") );		
-		org.setParentCode(  CommonUtil.getParentOrgCode( request.getParameter("parentCode"), request.getParameter("parentLevel")));
+		org.setParentCode(  com.tsingglobal.utils.CommonUtil.getParentOrgCode( request.getParameter("parentCode"), request.getParameter("parentLevel")));
 		
 		PageInfo<OrganizationModel> pageInfo = new PageInfo<OrganizationModel>( orgServcie.queryOrganizationByPage( org ) );
 		

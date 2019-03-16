@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.common.utils.IntegerValueFilter;
 import com.tsingglobal.system.role.dto.TRoleDTO;
 import com.tsingglobal.system.role.service.ITRoleService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 /**
 * 描述：质量问题控制层

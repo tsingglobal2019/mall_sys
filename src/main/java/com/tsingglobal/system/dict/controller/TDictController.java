@@ -13,7 +13,7 @@ import com.alibaba.fastjson.JSON;
 import com.common.utils.IntegerValueFilter;
 import com.tsingglobal.system.dict.dto.TDictDTO;
 import com.tsingglobal.system.dict.service.ITDictService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 
 /**
 * 描述：数据字典控制层

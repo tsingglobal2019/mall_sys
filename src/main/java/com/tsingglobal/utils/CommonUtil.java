@@ -1,122 +1,108 @@
 package com.tsingglobal.utils;
 
-import java.io.PrintWriter;
-import java.security.MessageDigest;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.util.StringUtils;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-
-import com.alibaba.fastjson.JSONObject;
-import com.common.utils.SnowflakeIdWorker;
 import com.tsingglobal.MallSysApplication;
 import com.tsingglobal.system.log.dto.TLogDTO;
 import com.tsingglobal.system.log.service.ITLogService;
 import com.tsingglobal.system.user.domain.UserModel;
-
 public class CommonUtil {
 	
-	public static HttpServletRequest getRequest() {
-		
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-	}
-	
-	public static HttpServletResponse getResponse() {
-		
-		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
-	}
-
-	public static boolean isEmpty(final String value) {
-
-		return StringUtils.isEmpty(value);
-	}
-
-	public static boolean isEmpty(final Object value) {
-
-		return (null == value);
-	}
-	
-	public static String dateToStr( final Date date) {
-		
-		return dateToStr( date, "yyyy-MM-dd HH:mm:ss" );
-	}
-	
-	public static String dateToStr( final Date date, final String pattern) {
-		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
-		return sdf.format(date);
-	}
-
-	/**
-	 * 
-	 * @Title: genarateID 生成ID
-	 * @Description: TODO(基于Twitter的Snowflake算法，生成符合时间趋势的ID.)
-	 * @return long 返回长整型ID
-	 */
-	public static long genarateID() {
-
-
-		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0,0);
-
-		return idWorker.nextId();
-	}
-
-	public static String MD5(String s) {
-		try {
-			MessageDigest md = MessageDigest.getInstance("MD5");
-			byte[] bytes = md.digest(s.getBytes("utf-8"));
-			return toHex(bytes);
-		} catch (Exception e) {
-			throw new RuntimeException(e);
-		}
-	}
-
-	private static String toHex(byte[] bytes) {
-
-		final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
-		StringBuilder ret = new StringBuilder(bytes.length * 2);
-		for (int i = 0; i < bytes.length; i++) {
-			ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
-			ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
-		}
-		return ret.toString();
-	}
-
-	public static void sendJsonData(HttpServletResponse response, String data) throws Exception {
-		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		out.println(data);
-		out.flush();
-		out.close();
-	}
-	
-	public static void success( final HttpServletResponse response, final String data) throws Exception {
-		
-		success( response, data, "操作完成！");
-	}
-	
-	public static void success( final HttpServletResponse response, final String data, final String successMsg) throws Exception {
-		JSONObject errorInfo = new JSONObject();
-		errorInfo.put("status", true);
-		errorInfo.put("code", 200);
-		errorInfo.put("message", successMsg);
-		errorInfo.put("data", data);
-		sendJsonData( response, errorInfo.toJSONString());
-	}
-	
-	public static void error(HttpServletResponse response, String errorMsg) throws Exception {
-		JSONObject errorInfo = new JSONObject();
-		errorInfo.put("status", false);
-		errorInfo.put("code", 404);
-		errorInfo.put("message", errorMsg);
-		errorInfo.put("data", null);
-		sendJsonData( response, errorInfo.toJSONString());
-	}
+//	public static HttpServletRequest getRequest() {
+//		
+//		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
+//	}
+//	
+//	public static HttpServletResponse getResponse() {
+//		
+//		return ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getResponse();
+//	}
+//
+//	public static boolean isEmpty(final String value) {
+//
+//		return StringUtils.isEmpty(value);
+//	}
+//
+//	public static boolean isEmpty(final Object value) {
+//
+//		return (null == value);
+//	}
+//	
+//	public static String dateToStr( final Date date) {
+//		
+//		return dateToStr( date, "yyyy-MM-dd HH:mm:ss" );
+//	}
+//	
+//	public static String dateToStr( final Date date, final String pattern) {
+//		SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+//		return sdf.format(date);
+//	}
+//
+//	/**
+//	 * 
+//	 * @Title: genarateID 生成ID
+//	 * @Description: TODO(基于Twitter的Snowflake算法，生成符合时间趋势的ID.)
+//	 * @return long 返回长整型ID
+//	 */
+//	public static long genarateID() {
+//
+//
+//		SnowflakeIdWorker idWorker = new SnowflakeIdWorker(0,0);
+//
+//		return idWorker.nextId();
+//	}
+//
+//	public static String MD5(String s) {
+//		try {
+//			MessageDigest md = MessageDigest.getInstance("MD5");
+//			byte[] bytes = md.digest(s.getBytes("utf-8"));
+//			return toHex(bytes);
+//		} catch (Exception e) {
+//			throw new RuntimeException(e);
+//		}
+//	}
+//
+//	private static String toHex(byte[] bytes) {
+//
+//		final char[] HEX_DIGITS = "0123456789ABCDEF".toCharArray();
+//		StringBuilder ret = new StringBuilder(bytes.length * 2);
+//		for (int i = 0; i < bytes.length; i++) {
+//			ret.append(HEX_DIGITS[(bytes[i] >> 4) & 0x0f]);
+//			ret.append(HEX_DIGITS[bytes[i] & 0x0f]);
+//		}
+//		return ret.toString();
+//	}
+//
+//	public static void sendJsonData(HttpServletResponse response, String data) throws Exception {
+//		response.setContentType("text/html;charset=UTF-8");
+//		PrintWriter out = response.getWriter();
+//		out.println(data);
+//		out.flush();
+//		out.close();
+//	}
+//	
+//	public static void success( final HttpServletResponse response, final String data) throws Exception {
+//		
+//		success( response, data, "操作完成！");
+//	}
+//	
+//	public static void success( final HttpServletResponse response, final String data, final String successMsg) throws Exception {
+//		JSONObject errorInfo = new JSONObject();
+//		errorInfo.put("status", true);
+//		errorInfo.put("code", 200);
+//		errorInfo.put("message", successMsg);
+//		errorInfo.put("data", data);
+//		sendJsonData( response, errorInfo.toJSONString());
+//	}
+//	
+//	public static void error(HttpServletResponse response, String errorMsg) throws Exception {
+//		JSONObject errorInfo = new JSONObject();
+//		errorInfo.put("status", false);
+//		errorInfo.put("code", 404);
+//		errorInfo.put("message", errorMsg);
+//		errorInfo.put("data", null);
+//		sendJsonData( response, errorInfo.toJSONString());
+//	}
 	
 	public static String getOrgCode( final String orgCode) {
 		final int[] indexArrays = {2,4,8,12,16,20,24,28,32};
@@ -133,7 +119,7 @@ public class CommonUtil {
 	}
 	
 	public static String getPermissionCode( final String permissionCode) {
-		if( CommonUtil.isEmpty(permissionCode) ) {
+		if( com.common.utils.CommonUtil.isEmpty(permissionCode) ) {
 			
 			return null;
 		}
@@ -162,14 +148,14 @@ public class CommonUtil {
 	 */
 	public static String getParentOrgCode( final String orgCode, final String orgLevel) {
 		
-		if( CommonUtil.isEmpty(orgCode) ) {
+		if( com.common.utils.CommonUtil.isEmpty(orgCode) ) {
 			
 			return null;
 		}
 		
 		String 	code = null;
 		
-		int iOrgLevel = ( CommonUtil.isEmpty(orgLevel) ) ? 0 : Integer.parseInt(orgLevel);
+		int iOrgLevel = ( com.common.utils.CommonUtil.isEmpty(orgLevel) ) ? 0 : Integer.parseInt(orgLevel);
 		
 		if( iOrgLevel > -1 ) {
 					
@@ -216,7 +202,7 @@ public class CommonUtil {
 		
 		TLogDTO logDTO = new TLogDTO();
 		
-		logDTO.setId( CommonUtil.genarateID() );
+		logDTO.setId( com.common.utils.CommonUtil.genarateID() );
 		
 		logDTO.setF_org_id(0);
 		
@@ -224,7 +210,7 @@ public class CommonUtil {
 		
 		logDTO.setF_user_id(0);
 		
-		logDTO.setF_user_name( (CommonUtil.isEmpty(userName)) ? CommonUtil.getCurUser().getUserName() : userName );
+		logDTO.setF_user_name( (com.common.utils.CommonUtil.isEmpty(userName)) ? CommonUtil.getCurUser().getUserName() : userName );
 		
 		logDTO.setF_log_time( new java.sql.Time(Calendar.getInstance().getTimeInMillis()));
 		
@@ -239,17 +225,15 @@ public class CommonUtil {
 	
 	public static UserModel getCurUser() {
 		
-		if( null == CommonUtil.getRequest().getSession().getAttribute("curUser") ) {
+		if( null == com.common.utils.CommonUtil.getRequest().getSession().getAttribute("curUser") ) {
 			
 			return null;
 		}
 		
-		return (UserModel)CommonUtil.getRequest().getSession().getAttribute("curUser");
+		return (UserModel)com.common.utils.CommonUtil.getRequest().getSession().getAttribute("curUser");
 	}
 	
 //	public static void main(String[] args) {
-//		
-//		final String orgCode ="01010001000100000000000000000000";
 //		
 //		CommonUtil.getOrgCode(orgCode);
 //		

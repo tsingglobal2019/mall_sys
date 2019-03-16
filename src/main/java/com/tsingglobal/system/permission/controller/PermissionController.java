@@ -23,7 +23,7 @@ import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsingglobal.system.permission.domain.PermissionModel;
 import com.tsingglobal.system.permission.service.PermissionService;
-import com.tsingglobal.utils.CommonUtil;
+import com.common.utils.CommonUtil;
 import com.tsingglobal.utils.Constants;
 import com.tsingglobal.utils.PermissionTree;
 
@@ -166,7 +166,7 @@ public class PermissionController {
 		
 		
 		final PermissionModel permission = new PermissionModel();//new OrganizationModel();
-		permission.setPermissionCode(CommonUtil.getPermissionCode(request.getParameter("parentCode")) );
+		permission.setPermissionCode(com.tsingglobal.utils.CommonUtil.getPermissionCode(request.getParameter("parentCode")) );
 		if( !CommonUtil.isEmpty(request.getParameter("permissionCode")) ) {
 			
 			permission.setPermissionCode(request.getParameter("permissionCode"));
