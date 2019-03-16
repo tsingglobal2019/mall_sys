@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.wares.waresstandardvalue.repository.WaresstandardvalueRepository">
+
+    <resultMap id="WaresstandardvalueDTOResultMap" type="com.tsingglobal.wares.waresstandardvalue.dto.WaresstandardvalueDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.standardId,t.standardvalueName,t.standardvalueOrder from wares_standardvalue t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="WaresstandardvalueDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="WaresstandardvalueDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+			1=1
+			<if test=""></if>
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from wares_standardvalue where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.wares.waresstandardvalue.dto.WaresstandardvalueDTO" >
+	  	update wares_standardvalue 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.wares.waresstandardvalue.dto.WaresstandardvalueDTO" >
+	    insert into wares_standardvalue  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>

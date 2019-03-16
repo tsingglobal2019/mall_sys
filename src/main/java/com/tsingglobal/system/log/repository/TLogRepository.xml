@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.system.log.repository.TLogRepository">
+
+    <resultMap id="TLogDTOResultMap" type="com.tsingglobal.system.log.dto.TLogDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.f_org_id,t.f_org_name,t.f_user_id,t.f_user_name,t.f_log_time,t.f_log_name,t.f_log_before,t.f_log_after from t_log t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="TLogDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="TLogDTOResultMap">
+        <include refid="selectSQL" />
+        where 1=1
+        	<if test="f_log_time_begin != null and f_log_time_begin != ''">
+        		and f_log_time > #{f_log_time_begin}
+        	</if>
+        		
+        	<if test="f_log_time_end != null and f_log_time_end != ''">
+        		and f_log_time &lt; #{f_log_time_end}
+        	</if>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from t_log where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <delete id="deleteBatch" parameterType="Long[]" >
+	  	delete from t_log where id in 
+	  	<foreach collection="array" item="id"  open="(" separator="," close=")">
+	  		#{id}
+	  	</foreach>
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.system.log.dto.TLogDTO" >
+	  	update t_log 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.system.log.dto.TLogDTO" >
+	    insert into t_log  (id,f_org_id,f_org_name,f_user_id,f_user_name,f_log_time,f_log_name,f_log_before,f_log_after)
+	    values (#{id,jdbcType=INTEGER},#{f_org_id,jdbcType=INTEGER},#{f_org_name,jdbcType=VARCHAR},
+	    #{f_user_id,jdbcType=INTEGER},#{f_user_name,jdbcType=VARCHAR},#{f_log_time,jdbcType=TIME},
+	    #{f_log_name,jdbcType=VARCHAR},#{f_log_before,jdbcType=VARCHAR},#{f_log_after,jdbcType=VARCHAR})
+	  </insert>  
+
+</mapper>

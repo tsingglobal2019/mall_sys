@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.wares.warescommoditytype.repository.WarescommoditytypeRepository">
+
+    <resultMap id="WarescommoditytypeDTOResultMap" type="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.pid,t.commoditytypeCode,t.commoditytypeName,t.commoditytypeLevel,t.commodityNum,t.commoditytypeMeasurementunit,t.commoditytypeOrder,t.commoditytypeShow,t.commoditytypeNavigationshow,t.commoditytypeImgpath,t.commoditytypeKeyword,t.commoditytypeDes from wares_commoditytype t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="WarescommoditytypeDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="WarescommoditytypeDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+			1=1
+			<if test=""></if>
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from wares_commoditytype where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO" >
+	  	update wares_commoditytype 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO" >
+	    insert into wares_commoditytype  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>

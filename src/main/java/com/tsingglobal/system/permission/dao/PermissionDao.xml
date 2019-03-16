@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.system.permission.dao.PermissionDao" >
+  <resultMap id="BaseResultMap" type="com.tsingglobal.system.permission.domain.PermissionModel" >
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="f_parentID" property="parentID" jdbcType="INTEGER" />
+    <result column="f_permission_code" property="permissionCode" jdbcType="VARCHAR" />
+    <result column="f_permission_name" property="permissionName" jdbcType="VARCHAR" />
+    <result column="f_permission_url" property="permissionURL" jdbcType="VARCHAR" />
+    <result column="f_permission_type" property="permissionType" jdbcType="INTEGER" />
+    <result column="f_permission_status" property="permissionStatus" jdbcType="INTEGER" />
+    <result column="f_permission_icon" property="permissionIcon" jdbcType="VARCHAR" />
+    
+  </resultMap>
+  <sql id="Base_Column_List" >
+    id,f_parentID,f_permission_code,f_permission_name,f_permission_url,f_permission_type,f_permission_status,f_permission_icon,f_permission_order
+  </sql>
+  <!-- 按ID加载权限信息 -->
+  <select id="loadPermission" resultMap="BaseResultMap" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    from t_permission
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- 条件查询权限信息 -->
+  <select id="queryPermissions" resultMap="BaseResultMap" parameterType="com.tsingglobal.system.permission.domain.PermissionModel" >
+    select
+    <include refid="Base_Column_List" />
+    from t_permission
+    where 1=1
+    
+    <if test=" parentID != -1">
+    	and f_parentID = #{parentID}
+    </if>
+    
+    <if test=" permissionCode != null and permissionCode != '' ">
+    	<bind name="permissionCode%" value="permissionCode + '%'" />
+    	and f_permission_code like #{permissionCode%}
+    </if>
+    
+    <if test=" permissionName != null and  permissionName !=''   ">
+    	<bind name="permissionName%" value="'%' + permissionName + '%'" />
+    	and f_permission_name like #{permissionName%}
+    </if>
+    
+    <if test=" permissionType != 0">
+    	and f_permission_type = #{permissionType}
+    </if>
+    
+    <if test=" permissionStatus != 0">
+    	and f_permission_status = #{permissionStatus}
+    </if>
+    
+    order by f_permission_order
+  </select>
+  <!-- 按ID删除机构 -->
+  <delete id="delPermission" parameterType="long[]" >
+    delete from t_permission where id in
+    <foreach collection="ids" item="id" open="(" separator="," close=")">
+    	#{id}
+    </foreach>
+  </delete>
+  
+  <!-- 按编码删除权限 -->
+  <delete id="delPermissionByCode" parameterType="String" >
+    delete from t_permission where f_permission_code like
+    <foreach collection="array" item="id" open="(" separator="," close=")">
+    	<bind name="id%" value="id+ '%'" />
+    	#{id%}
+    </foreach>
+  </delete>
+  
+  <!-- 更新权限信息信息 -->
+  <update id="updatePermission" parameterType="com.tsingglobal.system.permission.domain.PermissionModel" >
+  	update t_permission set f_permission_code=#{permissionCode,jdbcType=VARCHAR},f_permission_name=#{permissionName,jdbcType=VARCHAR}
+  	,f_permission_url=#{permissionURL,jdbcType=VARCHAR},f_permission_type=#{permissionType,jdbcType=INTEGER}
+  	,f_permission_status=#{permissionStatus,jdbcType=INTEGER},f_permission_order=#{order,jdbcType=INTEGER}
+  	<if test=" permissionIcon != ''">
+  		,f_permission_icon=#{permissionIcon,jdbcType=VARCHAR}
+  	</if>
+  	
+  	where id= #{id,jdbcType=INTEGER}
+  </update>
+  
+  <!-- 保存权限信息信息 -->
+  <insert id="savePermission"   parameterType="com.tsingglobal.system.permission.domain.PermissionModel" >
+    insert into t_permission (id,f_parentID,f_permission_code,f_permission_name,f_permission_url,
+    f_permission_type,f_permission_status,f_permission_order,f_permission_icon)
+    values (#{id,jdbcType=INTEGER}, #{parentID,jdbcType=INTEGER},#{permissionCode,jdbcType=VARCHAR}, #{permissionName,jdbcType=VARCHAR}
+    , #{permissionURL,jdbcType=VARCHAR}, #{permissionType,jdbcType=INTEGER}, #{permissionStatus,jdbcType=INTEGER}
+    , #{order,jdbcType=INTEGER}, #{permissionIcon,jdbcType=VARCHAR})
+  </insert>  
+</mapper>
