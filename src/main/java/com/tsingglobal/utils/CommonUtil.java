@@ -15,7 +15,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.alibaba.fastjson.JSONObject;
 import com.common.utils.SnowflakeIdWorker;
-import com.tsingglobal.TsingglobalAdminApplication;
+import com.tsingglobal.MallSysApplication;
 import com.tsingglobal.system.log.dto.TLogDTO;
 import com.tsingglobal.system.log.service.ITLogService;
 import com.tsingglobal.system.user.domain.UserModel;
@@ -234,7 +234,7 @@ public class CommonUtil {
 		
 //		tLogService.saveTLog(logDTO);
 		
-		TsingglobalAdminApplication.cac.getBean(ITLogService.class).saveTLog(logDTO);
+		MallSysApplication.cac.getBean(ITLogService.class).saveTLog(logDTO);
 	}
 	
 	public static UserModel getCurUser() {
