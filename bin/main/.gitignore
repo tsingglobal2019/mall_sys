@@ -1,8 +1,4 @@
-/application-dev.yml
-/application-product.yml
-/application-test.yml
-/application.yml
-/com/
-/db/
 /static/
+/com/
 /xml/
+/db/

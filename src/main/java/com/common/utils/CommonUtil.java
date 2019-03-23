@@ -36,6 +36,11 @@ public class CommonUtil {
 		return (null == value);
 	}
 	
+	public static boolean validateEmail( final String email) {
+		
+		return email.matches( "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$" );
+	}
+	
 	public static String dateToStr( final Date date) {
 		
 		return dateToStr( date, "yyyy-MM-dd HH:mm:ss" );

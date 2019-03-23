@@ -93,4 +93,25 @@ public interface UserService {
 	    * @throws
 	 */
 	public void delUsers(String ids);
+
+	/**
+	 * 注册用户信息
+	 * @param user 待注册用户，至少包括用户名和账户（邮件格式）
+	 * @return 保存后的注册用户，含ID和注册时间、注册码(userCode)
+	 */
+	public UserModel registerUser( final UserModel user);
+	
+	/**
+	 * 验证用户注册的邮箱地址是否存在。顾客注册的邮箱地址就是其未来的账户，不能重复。
+	 * @param user	待注册用户
+	 * @return	是否存在注册的邮箱地址。 true=存在 false=不存在
+	 */
+	public boolean validateRegisterUser( final UserModel user );
+	
+	/**
+	 * 提交注册码。
+	 * @param user 待注册用户，其中含有用户输入的注册码，或者自动生成的注册码。
+	 * @return 注册后的用户。注册失败返回Null。
+	 */
+	public UserModel commitRegisterCode( final UserModel user );
 }

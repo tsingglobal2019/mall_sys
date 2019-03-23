@@ -11,6 +11,7 @@
 package com.tsingglobal.system.user.domain;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.common.utils.CommonUtil;
 
@@ -24,6 +25,9 @@ import com.common.utils.CommonUtil;
 
 public class UserModel implements Serializable {
 
+	public UserModel() {
+		super();
+	}
 
 	public long getId() {
 		return id;
@@ -82,6 +86,14 @@ public class UserModel implements Serializable {
 		this.orgID = orgID;
 	}
 
+	public Date getRegisterTime() {
+		return registerTime;
+	}
+
+	public void setRegisterTime(Date registerTime) {
+		this.registerTime = registerTime;
+	}
+
 	public boolean validateOK() {
 		
 		return !( CommonUtil.isEmpty(userCode) || CommonUtil.isEmpty(loginName) ); 
@@ -111,4 +123,7 @@ public class UserModel implements Serializable {
 	
 	//组织机构ID
 	private long orgID;
+	
+	//注册时间
+	private Date registerTime;
 }

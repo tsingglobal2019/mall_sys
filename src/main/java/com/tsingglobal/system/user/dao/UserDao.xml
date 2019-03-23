@@ -9,6 +9,7 @@
     <result column="f_pwd" property="password" jdbcType="VARCHAR" />
     <result column="f_locked" property="lockedOK" jdbcType="INTEGER" />
     <result column="f_org_id" property="orgID" jdbcType="INTEGER" />
+    <result column="f_register_time" property="registerTime" jdbcType="DATE" />
   </resultMap>
   <sql id="Base_Column_List" >
     t_user.id, f_user_code, f_login_name,f_user_name,f_pwd,f_locked,f_org_id
@@ -94,13 +95,14 @@
   
   <!-- 保存用户信息 -->
   <insert id="saveUser"   parameterType="com.tsingglobal.system.user.domain.UserModel" >
-    insert into t_user (id, f_user_code, f_user_name,f_login_name,f_pwd,f_locked,f_org_id)
+    insert into t_user (id, f_user_code, f_user_name,f_login_name,f_pwd,f_locked,f_org_id,f_register_time)
     values (#{id,jdbcType=INTEGER}, 
     #{userCode,jdbcType=VARCHAR},
     #{userName,jdbcType=VARCHAR},
     #{loginName,jdbcType=VARCHAR},
     #{password,jdbcType=VARCHAR},
     #{lockedOK,jdbcType=INTEGER},
-    #{orgID,jdbcType=INTEGER})
+    #{orgID,jdbcType=INTEGER},
+    #{registerTime,jdbcType=DATE})
   </insert>  
 </mapper>

@@ -1,5 +1,8 @@
 package com.tsingglobal.system.user.controller;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -18,13 +21,14 @@ import org.springframework.web.bind.annotation.RestController;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
 import com.alibaba.fastjson.JSONObject;
+import com.common.utils.CommonUtil;
 import com.common.utils.IntegerValueFilter;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.tsingglobal.system.org.domain.OrganizationModel;
 import com.tsingglobal.system.user.domain.UserModel;
 import com.tsingglobal.system.user.service.UserService;
-import com.common.utils.CommonUtil;
+import com.tsingglobal.utils.EMailUtil;
 
 @RestController
 @RequestMapping(value="/system/user")
@@ -182,7 +186,95 @@ public class UserController {
 		
 		CommonUtil.sendJsonData(response, JSON.toJSONString("用户退出系统！"));
 	}
+	
+	@PostMapping(value= "/registerUser")
+	public void registerUser(final HttpServletRequest request, final HttpServletResponse response,@RequestBody  final UserModel user) throws Exception {
 		
+		if( null == user ) {
+			
+			CommonUtil.error(response, "用户信息为空，无法注册！");
+			return ;
+		}
+		
+		if( CommonUtil.isEmpty(user.getLoginName())) {
+			
+			CommonUtil.error(response, "账户信息不能为空！");
+			return ;
+		}
+		
+		if( !CommonUtil.validateEmail( user.getLoginName() )) {
+			
+			CommonUtil.error(response, "邮件格式错误，请验证后重新注册！");
+			return ;
+		}
+		
+		if( !userService.validateRegisterUser(user) ) {
+			
+			CommonUtil.error(response, "您注册的邮箱地址已存在，请核对后重新注册！");
+			return ;
+		}
+		
+		UserModel registerUser = userService.registerUser( user );
+		
+		//发送含有注册码的邮件
+		System.out.println("开始发送邮件");
+		EMailUtil.getInstance().sendMail(user.getLoginName(), "尊敬的用户您好！欢迎注册并使用轻引力系统，您的注册码是："+registerUser.getUserCode());
+		System.out.println("邮件发送成功！");
+		
+		if( existWhiteList(user.getLoginName()) ) {
+			
+			CommonUtil.success( JSON.toJSONString(registerUser) );
+		}else {
+			
+			CommonUtil.success("0");
+		}
+	}
+	
+	@PostMapping(value= "/commitRegisterCode")
+	public void commitRegisterCode(final HttpServletRequest request, final HttpServletResponse response,@RequestBody  final UserModel user) throws Exception {
+		
+		if( CommonUtil.isEmpty(user.getUserCode()) ) {
+			
+			CommonUtil.error(response, "注册码不能为空！");
+		}
+		
+		if( this.validateRegisterDate(user.getRegisterTime()) ) {
+			
+			CommonUtil.error(response, "注册码已超时，请重新申请！");
+		}
+		
+		UserModel commitedUser = this.userService.commitRegisterCode(user) ;
+		
+		if( null == commitedUser ) {
+			
+			CommonUtil.error(response, "您输入的注册码错误或不存在，请核对后重新数据入！");
+		}else {
+		
+			CommonUtil.success( JSON.toJSONString(  commitedUser ) );
+		}
+		
+		
+		
+	}
+	
+	private boolean validateRegisterDate( final Date registerDate ) {
+		
+		final int MAX_MINUTE = 5;
+		
+		return ( Calendar.getInstance().getTime().getTime() - registerDate.getTime() ) / (1000) > MAX_MINUTE; 
+	}
+	
+	/*
+	 * 判断注册账户（邮件）是否在白名单中。如果存在，直接跳转到设置密码环节；否则，创建用户注册消息，提醒运营人员审核账户。
+	 * 运营人员审核通过后，系统自动给用户注册邮箱发送注册码，并注册消息，提醒用户完成注册。
+	 */
+	private boolean existWhiteList( final String email ) {
+		
+		final List<String> whiteList = new ArrayList<String>();
+		whiteList.add("tsing.com");
+		
+		return whiteList.contains(email);
+	}
 
 	@Autowired
 	@Qualifier("userService")
