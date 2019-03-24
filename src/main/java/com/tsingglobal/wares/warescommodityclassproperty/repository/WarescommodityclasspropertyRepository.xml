@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.wares.warescommodityclassproperty.repository.WarescommodityclasspropertyRepository">
+
+    <resultMap id="WarescommodityclasspropertyDTOResultMap" type="com.tsingglobal.wares.warescommodityclassproperty.dto.WarescommodityclasspropertyDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.commodityclass_id,t.commodityclass_property_code,t.commodityclass_property_name,t.commodityclass_property_ismultiselect,t.commodityclass_property_value,t.commodityclass_property_order,t.commodityclass_property_style,t.commodityclass_property_index,t.commodityclass_property_relevance,t.commodityclass_property_selecttype,t.commodityclass_property_inputtype,t.commodityclass_property_auto from wares_commodityclass_property t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="WarescommodityclasspropertyDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="WarescommodityclasspropertyDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+			1=1
+			<if test=""></if>
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from wares_commodityclass_property where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.wares.warescommodityclassproperty.dto.WarescommodityclasspropertyDTO" >
+	  	update wares_commodityclass_property 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommodityclassproperty.dto.WarescommodityclasspropertyDTO" >
+	    insert into wares_commodityclass_property  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>

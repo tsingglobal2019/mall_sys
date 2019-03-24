@@ -13,7 +13,7 @@ import java.util.Map;
 /**
 * 描述：请修改类、方法注释 服务实现层
 * @author Team
-* @date Fri Feb 22 04:50:49 CST 2019
+* @date Sun Mar 24 17:27:31 CST 2019
 */
 @Service
 public class WarescommodityServiceImpl implements IWarescommodityService {

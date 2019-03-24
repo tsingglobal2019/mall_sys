@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tsingglobal.wares.waressteppricesale.repository.WaressteppricesaleRepository">
+
+    <resultMap id="WaressteppricesaleDTOResultMap" type="com.tsingglobal.wares.waressteppricesale.dto.WaressteppricesaleDTO"></resultMap>
+
+    <sql id="selectSQL">
+        select t.id,t.saletype_id,t.stepprice_purchases,t.stepprice_discount,t.mark from wares_steppricesale t
+    </sql>
+
+    <select id="load" parameterType="Integer" resultMap="WaressteppricesaleDTOResultMap">
+        <include refid="selectSQL"></include>
+        <where>
+            and t.id = #{id,jdbcType=INTEGER}
+        </where>
+    </select>
+
+    <select id="queryList" parameterType="java.util.Map" resultMap="WaressteppricesaleDTOResultMap">
+        <include refid="selectSQL" />
+        <where>
+			1=1
+			<if test=""></if>
+        </where>
+    </select>
+    
+     <delete id="delete" parameterType="long" >
+	    delete from wares_steppricesale where id =#{id,jdbcType=INTEGER}
+	  </delete>
+	  
+	  <update id="update" parameterType="com.tsingglobal.wares.waressteppricesale.dto.WaressteppricesaleDTO" >
+	  	update wares_steppricesale 
+	  	set 
+	  	where id= #{id,jdbcType=INTEGER}
+	  </update>
+	  
+	  <insert id="save"   parameterType="com.tsingglobal.wares.waressteppricesale.dto.WaressteppricesaleDTO" >
+	    insert into wares_steppricesale  (id)
+	    values (#{id,jdbcType=INTEGER})
+	  </insert>  
+
+</mapper>

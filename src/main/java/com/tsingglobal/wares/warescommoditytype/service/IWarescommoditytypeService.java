@@ -22,4 +22,11 @@ public interface IWarescommoditytypeService {
     WarescommoditytypeDTO updateWarescommoditytype(WarescommoditytypeDTO warescommoditytypeDTO) throws Exception;
     
     List<WarescommoditytypeDTO> listWarescommoditytypes(final Map<String,Object> map) throws Exception;
+    
+    /**
+     * 展现一级商品分类
+     * @return
+     * @throws Exception
+     */
+    List<WarescommoditytypeDTO> listWarescommoditytypes() throws Exception;
 }

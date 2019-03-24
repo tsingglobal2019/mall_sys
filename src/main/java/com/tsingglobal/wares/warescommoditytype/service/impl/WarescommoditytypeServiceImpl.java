@@ -1,14 +1,17 @@
 package com.tsingglobal.wares.warescommoditytype.service.impl;
-import com.tsingglobal.wares.warescommoditytype.repository.WarescommoditytypeRepository;
-import com.tsingglobal.wares.warescommoditytype.service.IWarescommoditytypeService;
-import org.springframework.stereotype.Service;
-import org.springframework.beans.factory.annotation.Autowired;
-import com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO;
-import com.common.utils.SnowflakeIdWorker;
-import org.springframework.beans.BeanUtils;
-
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.stereotype.Service;
+
+import com.common.utils.SnowflakeIdWorker;
+import com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO;
+import com.tsingglobal.wares.warescommoditytype.repository.WarescommoditytypeRepository;
+import com.tsingglobal.wares.warescommoditytype.service.IWarescommoditytypeService;
 
 /**
 * 描述：请修改类、方法注释 服务实现层
@@ -68,6 +71,16 @@ public class WarescommoditytypeServiceImpl implements IWarescommoditytypeService
     
     public List<WarescommoditytypeDTO> listWarescommoditytypes( final Map<String,Object> map) throws Exception {
     
+		return warescommoditytypeRepository.queryList(map);
+	}
+    
+    @Cacheable(value="listWarescommoditytypes", key="111")
+    public List<WarescommoditytypeDTO> listWarescommoditytypes() throws Exception {
+    	
+    	final Map<String,Object> map = new HashMap<String,Object>();
+    	
+    	map.put("commoditytypeLevel", 1);
+    	
 		return warescommoditytypeRepository.queryList(map);
 	}
   }

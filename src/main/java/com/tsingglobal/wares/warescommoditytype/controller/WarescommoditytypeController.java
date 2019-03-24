@@ -64,6 +64,18 @@ public class WarescommoditytypeController {
 		
 		CommonUtil.sendJsonData(response, obj.toJSONString());
 	}
+     
+     @GetMapping(value="/getWarescommoditytype")
+     public void getWarescommoditytype() {
+    	 try {
+    		 IntegerValueFilter intFilter = new IntegerValueFilter();
+    		 
+			CommonUtil.success( JSONArray.parseArray( JSON.toJSONString(this.warescommoditytypeService.listWarescommoditytypes() ,intFilter)).toJSONString());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+     }
 
     /**
     * 描述：根据Id 查询
