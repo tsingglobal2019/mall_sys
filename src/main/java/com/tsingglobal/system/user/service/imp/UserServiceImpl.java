@@ -118,8 +118,6 @@ public class UserServiceImpl implements UserService {
 		
 		registerUser.setId(CommonUtil.genarateID());
 		
-		registerUser.setUserCode( "" + generateRegisterCode() );
-		
 		//注册用户处于锁定状态。
 		registerUser.setLockedOK(1);
 		
@@ -128,6 +126,8 @@ public class UserServiceImpl implements UserService {
 		registerUser.setPassword("1");
 		
 		registerUser.setOrgID(0);
+		
+		userDao.delUser(registerUser.getId());
 		
 		this.userDao.saveUser(registerUser);
 		
@@ -145,13 +145,6 @@ public class UserServiceImpl implements UserService {
 		List<UserModel> usres = userDao.queryUsers(user);
 
 		return usres.isEmpty();
-	}
-	
-	private int generateRegisterCode() {
-		
-        Random ne=new Random();
-        
-        return ne.nextInt(9999-1000+1)+1000;
 	}
 
 	@Override

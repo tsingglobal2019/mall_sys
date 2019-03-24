@@ -216,18 +216,20 @@ public class UserController {
 		
 		UserModel registerUser = userService.registerUser( user );
 		
-		//发送含有注册码的邮件
-		System.out.println("开始发送邮件");
-		EMailUtil.getInstance().sendMail(user.getLoginName(), "尊敬的用户您好！欢迎注册并使用轻引力系统，您的注册码是："+registerUser.getUserCode());
-		System.out.println("邮件发送成功！");
+		CommonUtil.success( JSON.toJSONString(registerUser) );
+	}
+	
+	@PostMapping(value= "/generateRegisterCode")
+	public void generateRegisterCode(final HttpServletRequest request, final HttpServletResponse response,@RequestBody  final UserModel user) throws Exception {
+		//清空注册码，避免通过浏览器工具获取该编码。
+		user.setUserCode( ""+com.tsingglobal.utils.CommonUtil.generateRegisterCode() );
 		
-		if( existWhiteList(user.getLoginName()) ) {
-			
-			CommonUtil.success( JSON.toJSONString(registerUser) );
-		}else {
-			
-			CommonUtil.success("0");
-		}
+		userService.updateUser(user);
+		
+		//发送含有注册码的邮件
+		EMailUtil.getInstance().sendMail(user.getLoginName(), "尊敬的用户您好！欢迎注册、使用轻引力在线商城系统！您的注册码是："+user.getUserCode());
+		
+		CommonUtil.success("ok!");
 	}
 	
 	@PostMapping(value= "/commitRegisterCode")
@@ -252,8 +254,6 @@ public class UserController {
 		
 			CommonUtil.success( JSON.toJSONString(  commitedUser ) );
 		}
-		
-		
 		
 	}
 	
