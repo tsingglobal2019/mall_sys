@@ -74,6 +74,15 @@ public class CommonUtil {
 			throw new RuntimeException(e);
 		}
 	}
+	
+	public static String MD5( final String s, final boolean encryptOK) {
+		if( encryptOK ) {
+			
+			return MD5(s);
+		}
+		
+		return s;
+	}
 
 	private static String toHex(byte[] bytes) {
 

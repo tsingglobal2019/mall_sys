@@ -69,7 +69,7 @@ public class UserController {
 			
 		}
 		
-		user.setPassword(CommonUtil.MD5(user.getPassword().toLowerCase().trim()));
+		user.setPassword(CommonUtil.MD5(user.getPassword().toLowerCase().trim(),false));
 		
 		userService.saveUser(user);
 		
@@ -157,7 +157,7 @@ public class UserController {
 				return ;
 			}
 			
-			user.setPassword(CommonUtil.MD5(user.getPassword().trim()));
+			user.setPassword(CommonUtil.MD5(user.getPassword().trim(), false));
 			
 			List<UserModel> users =  userService.queryUser(user);
 			
