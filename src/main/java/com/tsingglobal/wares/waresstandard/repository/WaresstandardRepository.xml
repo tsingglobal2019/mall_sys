@@ -2,7 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsingglobal.wares.waresstandard.repository.WaresstandardRepository">
 
-    <resultMap id="WaresstandardDTOResultMap" type="com.tsingglobal.wares.waresstandard.dto.WaresstandardDTO"></resultMap>
+    <resultMap id="WaresstandardDTOResultMap" type="com.tsingglobal.wares.waresstandard.dto.WaresstandardDTO">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="saletype_id" property="saletypeId" jdbcType="BIGINT" />
+    	<result column="standard_name" property="standardName" jdbcType="VARCHAR" />
+    </resultMap>
 
     <sql id="selectSQL">
         select t.id,t.saletype_id,t.standard_name from wares_standard t
@@ -11,7 +15,7 @@
     <select id="load" parameterType="Integer" resultMap="WaresstandardDTOResultMap">
         <include refid="selectSQL"></include>
         <where>
-            and t.id = #{id,jdbcType=INTEGER}
+            1=1 and t.id = #{id,jdbcType=BIGINT}
         </where>
     </select>
 
@@ -30,12 +34,12 @@
 	  <update id="update" parameterType="com.tsingglobal.wares.waresstandard.dto.WaresstandardDTO" >
 	  	update wares_standard 
 	  	set 
-	  	where id= #{id,jdbcType=INTEGER}
+	  	where id= #{id,jdbcType=BIGINT}
 	  </update>
 	  
 	  <insert id="save"   parameterType="com.tsingglobal.wares.waresstandard.dto.WaresstandardDTO" >
 	    insert into wares_standard  (id)
-	    values (#{id,jdbcType=INTEGER})
+	    values (#{id,jdbcType=BIGINT})
 	  </insert>  
 
 </mapper>

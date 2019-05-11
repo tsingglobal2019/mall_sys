@@ -2,7 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsingglobal.wares.warescommodity.repository.WarescommodityRepository">
 
-    <resultMap id="WarescommodityDTOResultMap" type="com.tsingglobal.wares.warescommodity.dto.WarescommodityDTO"></resultMap>
+    <resultMap id="WarescommodityDTOResultMap" type="com.tsingglobal.wares.warescommodity.dto.WarescommodityDTO">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="commodity_code" property="commodityCode" jdbcType="VARCHAR" />
+    	<result column="commodity_name" property="commodityName" jdbcType="VARCHAR" />
+    	<result column="commodity_title" property="commodityTitle" jdbcType="VARCHAR" />
+    	<result column="commodity_des" property="commodityDes" jdbcType="VARCHAR" />
+    	<result column="commodity_num" property="commodityNum" jdbcType="VARCHAR" />
+    	<result column="commodity_price" property="commodityPrice" jdbcType="NUMERIC"/>
+    	<result column="commodity_market_price" property="commodityMarketPrice" jdbcType="NUMERIC"/>
+    	<result column="commodity_inventory" property="commodityInventory" jdbcType="INTEGER" />
+    	<result column="measurement_unit" property="measurementUnit" jdbcType="INTEGER" />
+    	<result column="commodity_weight" property="commodityWeight" jdbcType="NUMERIC" />
+    	<result column="commodity_label" property="commodityLabel" jdbcType="INTEGER" />
+    	<result column="commodity_order" property="commodityOrder" jdbcType="INTEGER" />
+    	<result column="commodity_sales_volume" property="commoditySalesVolume" jdbcType="INTEGER" />
+    	<result column="commodity_audit_state" property="commodityAuditState" jdbcType="INTEGER" />
+    	<result column="commodity_img_path" property="commodityImgPath" jdbcType="VARCHAR" />
+    </resultMap>
 
     <sql id="selectSQL">
         select t.id,t.commodity_code,t.commodity_name,t.commodity_title,t.commodity_des,t.commodity_num,t.commodity_price,t.commodity_market_price,t.commodity_inventory,t.measurement_unit,t.commodity_weight,t.commodity_label,t.commodity_order,t.commodity_sales_volume,t.commodity_audit_state,t.commodity_img_path from wares_commodity t
@@ -11,7 +28,7 @@
     <select id="load" parameterType="Integer" resultMap="WarescommodityDTOResultMap">
         <include refid="selectSQL"></include>
         <where>
-            and t.id = #{id,jdbcType=INTEGER}
+            1=1 and t.id = #{id,jdbcType=BIGINT}
         </where>
     </select>
 
@@ -30,12 +47,12 @@
 	  <update id="update" parameterType="com.tsingglobal.wares.warescommodity.dto.WarescommodityDTO" >
 	  	update wares_commodity 
 	  	set 
-	  	where id= #{id,jdbcType=INTEGER}
+	  	where id= #{id,jdbcType=BIGINT}
 	  </update>
 	  
 	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommodity.dto.WarescommodityDTO" >
 	    insert into wares_commodity  (id)
-	    values (#{id,jdbcType=INTEGER})
+	    values (#{id,jdbcType=BIGINT})
 	  </insert>  
 
 </mapper>

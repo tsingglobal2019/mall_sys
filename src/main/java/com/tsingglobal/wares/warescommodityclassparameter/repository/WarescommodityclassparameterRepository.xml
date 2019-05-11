@@ -2,7 +2,21 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsingglobal.wares.warescommodityclassparameter.repository.WarescommodityclassparameterRepository">
 
-    <resultMap id="WarescommodityclassparameterDTOResultMap" type="com.tsingglobal.wares.warescommodityclassparameter.dto.WarescommodityclassparameterDTO"></resultMap>
+    <resultMap id="WarescommodityclassparameterDTOResultMap" type="com.tsingglobal.wares.warescommodityclassparameter.dto.WarescommodityclassparameterDTO">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="commodityclass_id" property="commodityclassId" jdbcType="BIGINT" />
+    	<result column="commodityclass_parameter_code" property="commodityclassParameterCode" jdbcType="VARCHAR" />
+    	<result column="commodityclass_parameter_name" property="commodityclassParameterName" jdbcType="VARCHAR" />
+    	<result column="commodityclass_parameter_ismultiselect" property="commodityclassParameterIsmultiselect" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_value" property="commodityclassParameterValue" jdbcType="VARCHAR" />
+    	<result column="commodityclass_parameter_order" property="commodityclassParameterOrder" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_style" property="commodityclassParameterStyle" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_index" property="commodityclassParameterIndex" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_relevance" property="commodityclassParameterRelevance" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_selecttype" property="commodityclassParameterSelecttype" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_inputtype" property="commodityclassParameterInputtype" jdbcType="INTEGER" />
+    	<result column="commodityclass_parameter_auto" property="commodityclassParameterAuto" jdbcType="INTEGER" />
+    </resultMap>
 
     <sql id="selectSQL">
         select t.id,t.commodityclass_id,t.commodityclass_parameter_code,t.commodityclass_parameter_name,t.commodityclass_parameter_ismultiselect,t.commodityclass_parameter_value,t.commodityclass_parameter_order,t.commodityclass_parameter_style,t.commodityclass_parameter_index,t.commodityclass_parameter_relevance,t.commodityclass_parameter_selecttype,t.commodityclass_parameter_inputtype,t.commodityclass_parameter_auto from wares_commodityclass_parameter t
@@ -11,7 +25,7 @@
     <select id="load" parameterType="Integer" resultMap="WarescommodityclassparameterDTOResultMap">
         <include refid="selectSQL"></include>
         <where>
-            and t.id = #{id,jdbcType=INTEGER}
+            1=1 and t.id = #{id,jdbcType=BIGINT}
         </where>
     </select>
 
@@ -30,12 +44,12 @@
 	  <update id="update" parameterType="com.tsingglobal.wares.warescommodityclassparameter.dto.WarescommodityclassparameterDTO" >
 	  	update wares_commodityclass_parameter 
 	  	set 
-	  	where id= #{id,jdbcType=INTEGER}
+	  	where id= #{id,jdbcType=BIGINT}
 	  </update>
 	  
 	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommodityclassparameter.dto.WarescommodityclassparameterDTO" >
 	    insert into wares_commodityclass_parameter  (id)
-	    values (#{id,jdbcType=INTEGER})
+	    values (#{id,jdbcType=BIGINT})
 	  </insert>  
 
 </mapper>

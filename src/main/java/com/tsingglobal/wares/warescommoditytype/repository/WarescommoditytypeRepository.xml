@@ -3,10 +3,19 @@
 <mapper namespace="com.tsingglobal.wares.warescommoditytype.repository.WarescommoditytypeRepository">
 
     <resultMap id="WarescommoditytypeDTOResultMap" type="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO">
-	    <id column="id" property="id" jdbcType="INTEGER" />
-	    <result column="pid" property="pid" jdbcType="INTEGER" />
-	    <result column="commoditytype_code" property="commoditytypeCode" jdbcType="VARCHAR" />
-	    <result column="commoditytype_name" property="commoditytypeName" jdbcType="VARCHAR" />
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    		<result column="pid" property="pid" jdbcType="BIGINT" />
+    		<result column="commoditytype_code" property="commoditytypeCode" jdbcType="VARCHAR" />
+    		<result column="commoditytype_name" property="commoditytypeName" jdbcType="VARCHAR" />
+    		<result column="commoditytype_level" property="commoditytypeLevel" jdbcType="INTEGER" />
+    		<result column="commodity_num" property="commodityNum" jdbcType="INTEGER" />
+    		<result column="commoditytype_measurementunit" property="commoditytypeMeasurementunit" jdbcType="VARCHAR" />
+    		<result column="commoditytype_order" property="commoditytypeOrder" jdbcType="INTEGER" />
+    		<result column="commoditytype_show" property="commoditytypeShow" jdbcType="INTEGER" />
+    		<result column="commoditytype_navigationshow" property="commoditytypeNavigationshow" jdbcType="INTEGER" />
+    		<result column="commoditytype_imgpath" property="commoditytypeImgpath" jdbcType="VARCHAR" />
+    		<result column="commoditytype_keyword" property="commoditytypeKeyword" jdbcType="VARCHAR" />
+    		<result column="commoditytype_des" property="commoditytypeDes" jdbcType="VARCHAR" />
     </resultMap>
 
     <sql id="selectSQL">
@@ -16,7 +25,7 @@
     <select id="load" parameterType="Integer" resultMap="WarescommoditytypeDTOResultMap">
         <include refid="selectSQL"></include>
         <where>
-            and t.id = #{id,jdbcType=INTEGER}
+            1=1 and t.id = #{id,jdbcType=BIGINT}
         </where>
     </select>
 
@@ -37,12 +46,12 @@
 	  <update id="update" parameterType="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO" >
 	  	update wares_commoditytype 
 	  	set 
-	  	where id= #{id,jdbcType=INTEGER}
+	  	where id= #{id,jdbcType=BIGINT}
 	  </update>
 	  
 	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommoditytype.dto.WarescommoditytypeDTO" >
 	    insert into wares_commoditytype  (id)
-	    values (#{id,jdbcType=INTEGER})
+	    values (#{id,jdbcType=BIGINT})
 	  </insert>  
 
 </mapper>

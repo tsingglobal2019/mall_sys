@@ -157,7 +157,7 @@ public class UserController {
 				return ;
 			}
 			
-			user.setPassword(CommonUtil.MD5(user.getPassword().trim(), false));
+			user.setPassword(CommonUtil.MD5(user.getPassword().trim(), true));
 			
 			List<UserModel> users =  userService.queryUser(user);
 			
@@ -229,7 +229,7 @@ public class UserController {
 		//发送含有注册码的邮件
 		EMailUtil.getInstance().sendMail(user.getLoginName(), "尊敬的用户您好！欢迎注册、使用轻引力在线商城系统！您的注册码是："+user.getUserCode());
 		
-		CommonUtil.success("ok!");
+		CommonUtil.success(user.getUserCode());
 	}
 	
 	@PostMapping(value= "/commitRegisterCode")

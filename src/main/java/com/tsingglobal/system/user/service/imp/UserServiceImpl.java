@@ -127,6 +127,8 @@ public class UserServiceImpl implements UserService {
 		
 		registerUser.setOrgID(0);
 		
+		registerUser.setUserCode(registerUser.getLoginName());
+		
 		userDao.delUser(registerUser.getId());
 		
 		this.userDao.saveUser(registerUser);

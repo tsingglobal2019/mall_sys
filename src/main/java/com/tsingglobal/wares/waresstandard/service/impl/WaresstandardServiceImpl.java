@@ -13,7 +13,7 @@ import java.util.Map;
 /**
 * 描述：请修改类、方法注释 服务实现层
 * @author Team
-* @date Sun Mar 24 17:27:31 CST 2019
+* @date Mon Mar 25 00:07:56 CST 2019
 */
 @Service
 public class WaresstandardServiceImpl implements IWaresstandardService {

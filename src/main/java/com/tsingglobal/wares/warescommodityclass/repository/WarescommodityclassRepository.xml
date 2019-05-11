@@ -2,7 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.tsingglobal.wares.warescommodityclass.repository.WarescommodityclassRepository">
 
-    <resultMap id="WarescommodityclassDTOResultMap" type="com.tsingglobal.wares.warescommodityclass.dto.WarescommodityclassDTO"></resultMap>
+    <resultMap id="WarescommodityclassDTOResultMap" type="com.tsingglobal.wares.warescommodityclass.dto.WarescommodityclassDTO">
+    	<id column="id" property="id" jdbcType="INTEGER" />
+    	<result column="commodity_id" property="commodityId" jdbcType="BIGINT" />
+    	<result column="commodityclass_name" property="commodityclassName" jdbcType="VARCHAR" />
+    	<result column="commodity_propertynum" property="commodityPropertynum" jdbcType="INTEGER" />
+    	<result column="commodity_parameternum" property="commodityParameternum" jdbcType="INTEGER" />
+    </resultMap>
 
     <sql id="selectSQL">
         select t.id,t.commodity_id,t.commodityclass_name,t.commodity_propertynum,t.commodity_parameternum from wares_commodityclass t
@@ -11,7 +17,7 @@
     <select id="load" parameterType="Integer" resultMap="WarescommodityclassDTOResultMap">
         <include refid="selectSQL"></include>
         <where>
-            and t.id = #{id,jdbcType=INTEGER}
+            1=1 and t.id = #{id,jdbcType=BIGINT}
         </where>
     </select>
 
@@ -30,12 +36,12 @@
 	  <update id="update" parameterType="com.tsingglobal.wares.warescommodityclass.dto.WarescommodityclassDTO" >
 	  	update wares_commodityclass 
 	  	set 
-	  	where id= #{id,jdbcType=INTEGER}
+	  	where id= #{id,jdbcType=BIGINT}
 	  </update>
 	  
 	  <insert id="save"   parameterType="com.tsingglobal.wares.warescommodityclass.dto.WarescommodityclassDTO" >
 	    insert into wares_commodityclass  (id)
-	    values (#{id,jdbcType=INTEGER})
+	    values (#{id,jdbcType=BIGINT})
 	  </insert>  
 
 </mapper>

@@ -31,7 +31,7 @@ import com.common.utils.IntegerValueFilter;
 /**
 * 描述：请修改类、方法注释控制层
 * @author Team
-* @date Sun Mar 24 17:27:31 CST 2019
+* @date Mon Mar 25 00:07:55 CST 2019
 */
 @RestController
 @RequestMapping(value="/warescommodityclassparameter")
